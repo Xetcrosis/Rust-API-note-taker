@@ -2,6 +2,15 @@ use dotenv::dotenv;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
 use std::env;
 
+use serde::Deserialize;
+slint::slint! {
+    export component App inherits Window {
+        GridLayout {
+
+        }
+    }
+}
+
 async fn grab_verses() -> HeaderMap {
     dotenv().ok();
 
@@ -14,10 +23,9 @@ async fn grab_verses() -> HeaderMap {
         "api-key",
         HeaderValue::from_str(&api_grab).expect("Invalid header value"),
     );
-    return headers;
+    let res = reqwest::ge
 }
 
 fn main() {
-    //    let app: App = App::new().unwrap().run().unwrap();
-    //    let weak: Weak<App> = app.as_weak();
+
 }
