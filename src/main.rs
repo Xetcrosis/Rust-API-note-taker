@@ -1,8 +1,7 @@
 use dotenv::dotenv;
-use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
+use reqwest::blocking::{Client,ClientBuilder};
 use std::env;
 
-use serde::Deserialize;
 slint::slint! {
     export component App inherits Window {
         GridLayout {
@@ -10,22 +9,19 @@ slint::slint! {
         }
     }
 }
+// dotenv().ok();
 
-async fn grab_verses() -> HeaderMap {
-    dotenv().ok();
+// let api_key = env::var("BIBLE_API_KEY").expect("| Code error | failed to find the api key");
 
-    let api_key = env::var("BIBLE_API_KEY").expect("| Code error | failed to find the api key");
-
-    let api_grab: String = format!("api-key: {}", api_key);
-
-    let mut headers = HeaderMap::new();
-    headers.insert(
-        "api-key",
-        HeaderValue::from_str(&api_grab).expect("Invalid header value"),
-    );
-    let res = reqwest::ge
-}
 
 fn main() {
+    let url: &str = "https://api.scripture.api.bible/v1/bibles";
+    let http_client:Client = Client::new();
+    let http_result = http_client.get(url).send();
 
+    if http_result.is_ok() {
+        println!("response ok {:#?}", http_result.ok().unwrap());
+    } else {
+        print!("PROGRESS!! failure but progress.")
+    }
 }
